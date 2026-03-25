@@ -68,7 +68,9 @@ jobs:
           path: dist
   deploy:
     needs: build
-    uses: SushmaHabbu/Git_Control_workflow/.github/workflows/reusable.yml@main
+    uses: ./.github/workflows/reusable.yml
+    with:
+      deploy-environment: production
   report:
     needs: [lint, deploy]
     if:  ${{ failure() && (needs.lint.result == 'failure' || needs.deploy.result == 'failure') }}
