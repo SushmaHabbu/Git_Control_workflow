@@ -67,8 +67,11 @@ jobs:
           name: dist-files
           path: dist
   deploy:
+    runs-on: ubuntu-latest
     needs: build
-    uses: ./.github/workflows/reusable.yml
+    steps:
+        - name: Deploy website
+          uses: ./.github/workflows/reusable.yml
   report:
     needs: [lint, deploy]
     if:  ${{ failure() && (needs.lint.result == 'failure' || needs.deploy.result == 'failure') }}
